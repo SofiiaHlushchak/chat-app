@@ -44,14 +44,14 @@ const chatSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
+            .addCase(fetchChats.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
             .addCase(fetchChats.fulfilled, (state, action) => {
                 state.loading = false;
                 state.chats = action.payload;
                 state.filteredChats = action.payload;
-            })
-            .addCase(fetchChats.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message;
             })
             .addCase(deleteChat.fulfilled, (state, action) => {
                 const remainingChats = state.chats.filter(
@@ -91,8 +91,15 @@ const chatSlice = createSlice({
             })
             .addCase(fetchMessages.fulfilled, (state, action) => {
                 state.loading = false;
-                state.messages = action.payload;
-                state.lastMessage = action.payload[action.payload.length - 1];
+                state.messages = action.payload.messages;
+                state.lastMessage = action.payload.messages[action.payload.messages.length - 1];
+                state.filteredChats = state.filteredChats.map(item => {
+                    if (item._id === action.payload.chatId) {
+                        item.messages = action.payload.messages;
+                    }
+
+                    return item;
+                });
             })
             .addCase(fetchMessages.rejected, (state, action) => {
                 state.loading = false;

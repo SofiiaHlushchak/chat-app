@@ -26,21 +26,6 @@
     margin-top: 10px;
 }
 
-.new-chat-button {
-    margin-top: 20px;
-    padding: 10px 15px;
-    font-size: 1rem;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.new-chat-button:hover {
-    background: #0056b3;
-}
-
 .modal-title {
     color: #007bff;
 }

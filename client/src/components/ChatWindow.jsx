@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMessages, sendMessage } from "../actions/chatActions";
 import socket from "../socket";
@@ -14,7 +14,14 @@ const ChatWindow = () => {
     const { chatId } = useParams();
     const [message, setMessage] = useState("");
     const messagesEndRef = useRef(null);
+    const navigate = useNavigate();
     const [showToast, setShowToast] = useState(false);
+
+    useEffect(() => {
+        if (chats.length && chats.every(chat => chat._id !== chatId)) {
+            navigate(`/chat/${chats[0]._id}`);
+        }
+    }, [navigate, chats, chatId]);
 
     useEffect(() => {
         socket.on("connect", () => console.log("Socket connected:", socket.id));

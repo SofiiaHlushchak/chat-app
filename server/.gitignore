@@ -24,6 +24,6 @@ yarn-error.log*
 .env
 .env.production
 .DS_Store
-
+package-lock.json
 
 versel.json

@@ -66,9 +66,9 @@ export const deleteChat = async (req, res) => {
 export const createPredefinedChats = async () => {
     try {
         const predefinedChats = [
-            { firstName: "FIRST", lastName: "FIRST" },
-            { firstName: "SECOND", lastName: "SECOND" },
-            { firstName: "THIRD", lastName: "THIRD" },
+            { firstName: "Alice", lastName: "Freeman" },
+            { firstName: "Jozefina", lastName: "Freeman" },
+            { firstName: "Piter", lastName: "Freeman" },
         ];
 
         for (const chat of predefinedChats) {

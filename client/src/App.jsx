@@ -5,6 +5,7 @@ import ChatList from "./components/ChatList";
 import ChatWindow from "./components/ChatWindow";
 import ChatForm from "./components/ChatForm";
 import SidebarHeader from "./components/SidebarHeader";
+import MainPage from "./components/MainPage";
 import { filterChats } from "./reducers/slices/chatSlice";
 
 const App = () => {
@@ -25,12 +26,16 @@ const App = () => {
         <div>
             <div className="container">
                 <div className="sidebar">
-                    <SidebarHeader openModal={openModal} onSearch={handleSearch} />
+                    <SidebarHeader
+                        openModal={openModal}
+                        onSearch={handleSearch}
+                    />
 
                     <ChatList onEditChat={(chat) => openModal(chat)} />
                 </div>
                 <div className="chat-area">
                     <Routes>
+                        <Route path="/" element={<MainPage />} />
                         <Route path="/chat/:chatId" element={<ChatWindow />} />
                     </Routes>
                 </div>

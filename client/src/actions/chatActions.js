@@ -5,16 +5,23 @@ import { setChats } from "../reducers/slices/chatSlice";
 
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-export const fetchChats = createAsyncThunk("chats/fetchChats", async () => {
-    const response = await axios.get(`${API_BASE_URL}/api/chats`);
-    return response.data;
-});
+export const fetchChats = createAsyncThunk(
+    "chats/fetchChats",
+    async (_, thunkAPI) => {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/api/chats`);
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error.message);
+        }
+    }
+);
 
 export const fetchMessages = createAsyncThunk(
     "chats/fetchMessages",
     async (chatId) => {
         const response = await axios.get(`${API_BASE_URL}/api/chats/${chatId}`);
-        return response.data.messages;
+        return { messages: response.data.messages, chatId };
     }
 );
 
@@ -54,9 +61,7 @@ export const deleteChat = createAsyncThunk(
 
         dispatch(setChats(updatedChats));
 
-        if (updatedChats.length > 0) {
-            navigate(`/chat/${updatedChats[0]._id}`);
-        } else {
+        if (!updatedChats.length) {
             navigate("/");
         }
 
@@ -86,10 +91,13 @@ export const createChat = createAsyncThunk(
 export const updateChat = createAsyncThunk(
     "chats/updateChat",
     async ({ chatId, firstName, lastName }) => {
-        const response = await axios.put(`${API_BASE_URL}/api/chats/${chatId}`, {
-            firstName,
-            lastName,
-        });
+        const response = await axios.put(
+            `${API_BASE_URL}/api/chats/${chatId}`,
+            {
+                firstName,
+                lastName,
+            }
+        );
         return response.data;
     }
 );

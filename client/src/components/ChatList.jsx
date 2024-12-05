@@ -8,8 +8,7 @@ import icon from "../resources/img/user.png";
 const ChatList = ({ onEditChat }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
-    const { filteredChats } = useSelector((state) => state.chats);
+    const chats = useSelector((state) => state.chats);
 
     useEffect(() => {
         dispatch(fetchChats());
@@ -23,11 +22,19 @@ const ChatList = ({ onEditChat }) => {
         dispatch(deleteChat({ chatId, navigate }));
     };
 
+    if (!chats?.filteredChats?.length) {
+        return (
+            <div className="no-chats-message">
+                <p>You currently have no available chats. Please create one.</p>
+            </div>
+        );
+    }
+
     return (
         <div className="chat-list">
             <h2 className="chat-list__title">Chats</h2>
             <ul className="chat-list__items">
-                {filteredChats.map((chat) => (
+                {chats.filteredChats?.map((chat) => (
                     <li key={chat._id} className="chat-list__item">
                         <div
                             className="chat-list__item-content"
@@ -41,8 +48,9 @@ const ChatList = ({ onEditChat }) => {
                                 />
                                 <div className="chat-list__details">
                                     <div className="chat-list__name">
-                                        <strong>{chat.firstName}</strong>:{" "}
-                                        {chat.lastName}
+                                        <strong>
+                                            {chat.firstName} {chat.lastName}
+                                        </strong>
                                     </div>
                                     {chat.messages && (
                                         <div className="chat-list__last-message">

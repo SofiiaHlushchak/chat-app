@@ -30,19 +30,6 @@
     color: #888;
 }
 
-.chat-list__menu-icon {
-    cursor: pointer;
-    font-size: 18px;
-    color: #888;
-}
-
-.chat-list__item {
-    position: relative;
-    margin-left: -16px;
-    margin-right: -16px;
-    cursor: pointer;
-}
-
 .chat-list__items {
     list-style: none;
     padding: 0;
@@ -56,6 +43,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: -16px;
+    margin-right: -16px;
+    cursor: pointer;
 }
 
 .chat-list__item-content {
@@ -79,8 +69,9 @@
 }
 
 .chat-list__menu-icon {
-    font-size: 1.2rem;
     cursor: pointer;
+    font-size: 18px;
+    color: #888;
 }
 
 .chat-list__menu-actions {
@@ -113,4 +104,18 @@
 
 .chat-list__menu-button:hover {
     background: #f0f0f0;
+}
+
+.no-chats-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    text-align: center;
+    color: #7f8c8d;
+    background-color: #ecf0f1;
+    border: 2px dashed #bdc3c7;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
 }

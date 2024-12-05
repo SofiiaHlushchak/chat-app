@@ -1,9 +1,12 @@
 import { Server as SocketIO } from "socket.io";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const configureSocketIO = (server) => {
     const io = new SocketIO(server, {
         cors: {
-            origin: "http://localhost:3000",
+            origin: process.env.CLIENT_ORIGIN,
             methods: ["GET", "POST"],
             allowedHeaders: ["Content-Type"],
             credentials: true,

@@ -37,19 +37,3 @@
 .sidebar-header__search {
     margin-top: 16px;
 }
-
-@media (max-width: 768px) {
-    .sidebar-header__top {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .sidebar-header__user-info {
-        gap: 12px;
-    }
-
-    .sidebar-header__user-icon {
-        width: 35px;
-        height: 35px;
-    }
-}

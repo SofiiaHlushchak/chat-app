@@ -8,8 +8,8 @@ import passport from "passport";
 import chatRoutes from "./routes/chatRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import * as chatController from "./controllers/chatController.js";
-import { configureSocketIO } from "./sockets/socketConfig.js"; // Імпортуємо конфігурацію сокетів
-import { socketIOMiddleware } from "./middleware/socketIO.js"; // Імпортуємо middleware для io
+import { configureSocketIO } from "./sockets/socketConfig.js";
+import { socketIOMiddleware } from "./middleware/socketIO.js";
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ mongoose
     .connect(process.env.MONGODB_URI)
     .then(() => {
         console.log("MongoDB connected");
-        chatController.createPredefinedChats(); // Створюємо чати при запуску
+        chatController.createPredefinedChats();
     })
     .catch((err) => {
         console.error("MongoDB connection error:", err);
@@ -30,7 +30,7 @@ mongoose
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
-        resave: true,
+        resave: false,
         saveUninitialized: true,
     })
 );
@@ -38,13 +38,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-const corsOptions = {
-    origin: process.env.CLIENT_ORIGIN,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"],
-    credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(express.json());
 

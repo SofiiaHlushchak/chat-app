@@ -1,19 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
-const SearchBar = ({ onSearch }) => {
-    const [searchTerm, setSearchTerm] = useState("");
-
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-        onSearch(e.target.value);
-    };
-
+const SearchBar = ({ onChange, value }) => {
     return (
         <input
             type="text"
             placeholder="Search or start new chat"
-            value={searchTerm}
-            onChange={handleSearchChange}
+            value={value}
+            onChange={onChange}
             className="search-bar"
         />
     );
